@@ -1,0 +1,5 @@
+from .authorization_locators import authorization_locators
+from .header_menu_locators import header_menu_locators
+from .iframe_locators import iframe_locators
+from .lottery_page_locators import lottery_page_locators
+from .main_page_locators import main_page_locators
