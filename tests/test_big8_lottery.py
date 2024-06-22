@@ -1,6 +1,9 @@
 import time
 import allure
 import pytest
+
+from data.sensitive_data import SensitiveData
+from fonbet_test_project.locators import LotteryPageLocators
 from fonbet_test_project.utils import utils
 from fonbet_test_project.database.db_queries import db
 from fonbet_test_project.utils.utils import comparison_elements_to_expected_texts
@@ -9,7 +12,7 @@ from fonbet_test_project.utils.utils import comparison_elements_to_expected_text
 PRODUCT_CODE = '104101'
 
 
-@allure.feature('Лотерея Премьер')
+@allure.feature('Лотерея "Большая 8"')
 @allure.story('Функциональность')
 class TestFunctionality:
 
@@ -29,7 +32,7 @@ class TestFunctionality:
 
         # THEN
         with allure.step('Заголовок в модальном окне "Вход в Личный кабинет"'):
-            assert logging_modal_title == 'Вход в Личный кабинет'
+            assert logging_modal_title in ('Вход в Личный кабинет', 'Log in to My Account')
 
     @allure.title('Покупка одного билета')
     @allure.tag('smoke', 'regress')
@@ -46,7 +49,7 @@ class TestFunctionality:
 
         # THEN
         with allure.step("В БД найден 1 проданный билет с начала теста"):
-            count = db.get_count_tickets_purchased_after_time(lottery_section.sensitive_data.OWNER_ID, timestamp)
+            count = db.get_count_tickets_purchased_after_time(SensitiveData.OWNER_ID, timestamp)
             assert 1 == count, "Количество купленных билетов у клиента не равно 1"
 
     @allure.title('Покупка одной комбинации на все доступные тиражи')
@@ -61,23 +64,23 @@ class TestFunctionality:
             lottery_section.generate_combination()
 
         with (allure.step("Нажатие на кнопку выбора тиражей")):
-            lottery_section.click_element(lottery_section.lottery_page_locators.Tickets.SELECT_DRAW_BUTTON)
+            lottery_section.click_element(LotteryPageLocators.Tickets.SELECT_DRAW_BUTTON)
 
         with allure.step("Выбор всех тиражей"):
             for draw_number in range(2, count_draws_db + 1):
-                draws_xpath = lottery_section.lottery_page_locators.Draws.DRAWS[1]
+                draws_xpath = LotteryPageLocators.Draws.DRAWS[1]
                 draw = f'{draws_xpath}[{draw_number}]'
                 lottery_section.click_element(('xpath', draw))
 
         with allure.step("Нажатие на кнопку подтверждения выбранных тиражей"):
-            lottery_section.click_element(lottery_section.lottery_page_locators.Draws.CONFIRM_BUTTON)
+            lottery_section.click_element(LotteryPageLocators.Draws.CONFIRM_BUTTON)
 
         with allure.step("Покупка билета"):
             lottery_section.purchase_confirmation_in_cupis()
 
         # THEN
         with allure.step(f"Подсчет количества купленных билетов в БД за период начало теста: {timestamp}"):
-            count_tickets = db.get_count_tickets_purchased_after_time(lottery_section.sensitive_data.OWNER_ID, timestamp)
+            count_tickets = db.get_count_tickets_purchased_after_time(SensitiveData.OWNER_ID, timestamp)
 
         with allure.step("В БД найдены все проданные билеты с начала теста"):
             assert count_tickets == count_draws_db
@@ -97,7 +100,7 @@ class TestFunctionality:
 
         # THEN
         with allure.step(f"В БД найдены все проданные билеты с начала теста: {timestamp}"):
-            count_tickets = db.get_count_tickets_purchased_after_time(lottery_section.sensitive_data.OWNER_ID, timestamp)
+            count_tickets = db.get_count_tickets_purchased_after_time(SensitiveData.OWNER_ID, timestamp)
             assert count_tickets == 10
 
     @allure.title('Покупка билета с повышенной ставкой')
@@ -108,24 +111,21 @@ class TestFunctionality:
 
         # WHEN
         with allure.step("Генерация комбинации"):
-            lottery_section.click_element(lottery_section.lottery_page_locators.GenerateCombination.TOP_HALF_FIELD_BUTTON)
-            time.sleep(0.5)
+            lottery_section.generate_top_half_combination()
 
         with allure.step("Добавление по одному числу на каждом поле"):
-            lottery_section.click_element(lottery_section.lottery_page_locators.GenerateCombination.LAST_NUMBER_FIRST_FIELD)
-            lottery_section.click_element(lottery_section.lottery_page_locators.GenerateCombination.LAST_NUMBER_SECOND_FIELD)
-            time.sleep(0.5)
+            lottery_section.add_last_numbers_in_each_field()
 
         with allure.step("Покупка билета"):
             lottery_section.purchase_confirmation_in_cupis()
 
         # THEN
         with allure.step(f"В БД найдены все проданные билеты с начала теста: {timestamp}"):
-            count_tickets = db.get_count_tickets_purchased_after_time(lottery_section.sensitive_data.OWNER_ID, timestamp)
+            count_tickets = db.get_count_tickets_purchased_after_time(SensitiveData.OWNER_ID, timestamp)
             assert count_tickets == 1
 
 
-@allure.feature('Лотерея Премьер')
+@allure.feature('Лотерея "Большая 8"')
 class TestDisplaying:
 
     @allure.story('Отображение содержания на вкладке "Игра"')
@@ -215,7 +215,7 @@ class TestDisplaying:
                 lottery_section.generate_combination_top_half_field()
 
             with allure.step("Добавление по одному числу на каждом поле"):
-                lottery_section.add_last_numbers_in_2_fields()
+                lottery_section.add_last_numbers_in_each_field()
 
             # THEN
             with allure.step("Проверка итоговой информации в корзине"):

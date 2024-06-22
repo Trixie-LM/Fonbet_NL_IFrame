@@ -6,10 +6,7 @@ class AuthLocators:
     PASSWORD_FIELD = ("xpath", "//*[@type='password']")
 
     # Кнопка входа
-    ENTER_BUTTON = ("xpath", "(//*[text()='Войти'])[2]")
+    ENTER_BUTTON = ("xpath", "(//*[text()='Войти' or text()='Log in'])[2]")
 
     # Заголовок модального окна входа
-    LOGIN_MODAL_TITLE = ("xpath", "//*[text()='Вход в Личный кабинет']")
-
-
-authorization_locators = AuthLocators
+    LOGIN_MODAL_TITLE = ("xpath", "//h1")

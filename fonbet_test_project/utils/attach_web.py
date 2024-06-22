@@ -41,7 +41,7 @@ class AttachWeb:
         )
 
     def add_video(self):
-        video_url = "https://selenoid.autotests.cloud/video/" + self.driver.session_id + ".mp4"
+        video_url = "http://localhost:4444/video/" + self.driver.session_id + ".mp4"
         html = "<html><body><video width='100%' height='100%' controls autoplay><source src='" \
                + video_url \
                + "' type='video/mp4'></video></body></html>"

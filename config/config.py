@@ -1,11 +1,11 @@
 import psycopg2
-from data.sensitive_data import sensitive_data
+from data.sensitive_data import SensitiveData
 
 
-host = sensitive_data.HOST
-user = sensitive_data.DB_USER
-password = sensitive_data.DB_PASSWORD
-db_name = sensitive_data.DB_NAME
+host = SensitiveData.HOST
+user = SensitiveData.DB_USER
+password = SensitiveData.DB_PASSWORD
+db_name = SensitiveData.DB_NAME
 
 
 # connect to exist database

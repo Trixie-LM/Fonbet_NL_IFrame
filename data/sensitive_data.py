@@ -17,6 +17,3 @@ class SensitiveData:
     DB_USER = os.getenv('DB_USER')
     DB_PASSWORD = os.getenv('DB_PASSWORD')
     DB_NAME = os.getenv('DB_NAME')
-
-
-sensitive_data = SensitiveData

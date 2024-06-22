@@ -12,10 +12,25 @@ from config.base_test import BaseTest
 def open_browser():
     options = Options()
     options.add_argument("--window-size=1920,1200")
-    options.add_argument("--headless")
+    # options.add_argument("--headless")
 
-    driver = webdriver.Chrome(options=options)
-    wait = WebDriverWait(driver, 15)
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": "125.0",
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+
+    options.capabilities.update(selenoid_capabilities)
+
+    driver = webdriver.Remote(
+        command_executor="http://localhost:4444/wd/hub",
+        options=options
+    )
+
+    wait = WebDriverWait(driver, 10)
     action = ActionChains(driver)
 
     driver = BaseTest(driver, wait, action)
@@ -32,14 +47,17 @@ def open_browser():
         driver.add_screenshot()
         driver.add_logs()
         driver.add_html()
-        driver.add_html_xml()
-        # driver.add_video()
+        # Нужен ли оН??? Иногда выдает ошибки при вызове
+        # driver.add_html_xml()
+        driver.add_video()
+
+    driver.quit()
 
 
 @pytest.fixture(scope='function')
 def authorization(open_browser):
     with allure.step("Авторизация на сайте под тестовой учетной записью"):
-        open_browser.sign_in()
+        open_browser.log_in()
 
     yield open_browser
 

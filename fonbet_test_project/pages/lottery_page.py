@@ -4,6 +4,7 @@ import random
 import allure
 
 from fonbet_test_project.pages.payment_widget import PaymentWidget
+from fonbet_test_project.locators import LotteryPageLocators, AuthLocators
 
 
 class Lottery(PaymentWidget):
@@ -14,44 +15,44 @@ class Lottery(PaymentWidget):
         self.action = action
 
         # Локаторы класса AuthLocators
-        self.LOGIN_MODAL_TITLE = self.authorization_locators.LOGIN_MODAL_TITLE
+        self.LOGIN_MODAL_TITLE = AuthLocators.LOGIN_MODAL_TITLE
 
-        # Локаторы класса GenerateCombination
-        self.ALL_RANDOM_NUMBERS_BUTTON = self.lottery_page_locators.GenerateCombination.ALL_RANDOM_NUMBERS_BUTTON
-        self.ODD_NUMBERS_BUTTON = self.lottery_page_locators.GenerateCombination.ODD_NUMBERS_BUTTON
-        self.EVEN_NUMBERS_BUTTON = self.lottery_page_locators.GenerateCombination.EVEN_NUMBERS_BUTTON
-        self.TOP_HALF_FIELD_BUTTON = self.lottery_page_locators.GenerateCombination.TOP_HALF_FIELD_BUTTON
-        self.BOTTOM_HALF_FIELD_BUTTON = self.lottery_page_locators.GenerateCombination.BOTTOM_HALF_FIELD_BUTTON
-        self.LAST_NUMBER_FIRST_FIELD = self.lottery_page_locators.GenerateCombination.LAST_NUMBER_FIRST_FIELD
-        self.LAST_NUMBER_SECOND_FIELD = self.lottery_page_locators.GenerateCombination.LAST_NUMBER_SECOND_FIELD
+        # Локаторы класса LotteryPageLocators.GenerateCombination
+        self.ALL_RANDOM_NUMBERS_BUTTON = LotteryPageLocators.GenerateCombination.ALL_RANDOM_NUMBERS_BUTTON
+        self.ODD_NUMBERS_BUTTON = LotteryPageLocators.GenerateCombination.ODD_NUMBERS_BUTTON
+        self.EVEN_NUMBERS_BUTTON = LotteryPageLocators.GenerateCombination.EVEN_NUMBERS_BUTTON
+        self.TOP_HALF_FIELD_BUTTON = LotteryPageLocators.GenerateCombination.TOP_HALF_FIELD_BUTTON
+        self.BOTTOM_HALF_FIELD_BUTTON = LotteryPageLocators.GenerateCombination.BOTTOM_HALF_FIELD_BUTTON
+        self.LAST_NUMBER_FIRST_FIELD = LotteryPageLocators.GenerateCombination.LAST_NUMBER_FIRST_FIELD
+        self.LAST_NUMBER_SECOND_FIELD = LotteryPageLocators.GenerateCombination.LAST_NUMBER_SECOND_FIELD
 
-        # Локаторы класса Tickets
-        self.SELECT_DRAW_BUTTON = self.lottery_page_locators.Tickets.SELECT_DRAW_BUTTON
-        self.NEAREST_DRAW = self.lottery_page_locators.Tickets.NEAREST_DRAW
-        self.ADD_MORE_TICKET_BUTTON = self.lottery_page_locators.Tickets.ADD_MORE_TICKET_BUTTON
+        # Локаторы класса LotteryPageLocators.Tickets
+        self.SELECT_DRAW_BUTTON = LotteryPageLocators.Tickets.SELECT_DRAW_BUTTON
+        self.NEAREST_DRAW = LotteryPageLocators.Tickets.NEAREST_DRAW
+        self.ADD_MORE_TICKET_BUTTON = LotteryPageLocators.Tickets.ADD_MORE_TICKET_BUTTON
 
-        # Локаторы класса Draws
-        self.DRAWS = self.lottery_page_locators.Draws.DRAWS
-        self.CONFIRM_BUTTON = self.lottery_page_locators.Draws.CONFIRM_BUTTON
+        # Локаторы класса LotteryPageLocators.Draws
+        self.DRAWS = LotteryPageLocators.Draws.DRAWS
+        self.CONFIRM_BUTTON = LotteryPageLocators.Draws.CONFIRM_BUTTON
 
-        # Локаторы класса Cart
-        self.SELECTED_TICKETS_TEXT_LOCATOR = self.lottery_page_locators.Cart.SELECTED_TICKETS_TEXT_LOCATOR
-        self.SELECTED_TICKETS_AMOUNT = self.lottery_page_locators.Cart.SELECTED_TICKETS_AMOUNT
-        self.SELECTED_DRAWS_TEXT_LOCATOR = self.lottery_page_locators.Cart.SELECTED_DRAWS_TEXT_LOCATOR
-        self.SELECTED_DRAWS_AMOUNT = self.lottery_page_locators.Cart.SELECTED_DRAWS_AMOUNT
-        self.TOTAL_TEXT = self.lottery_page_locators.Cart.TOTAL_TEXT
+        # Локаторы класса LotteryPageLocators.Cart
+        self.SELECTED_TICKETS_TEXT_LOCATOR = LotteryPageLocators.Cart.SELECTED_TICKETS_TEXT_LOCATOR
+        self.SELECTED_TICKETS_AMOUNT = LotteryPageLocators.Cart.SELECTED_TICKETS_AMOUNT
+        self.SELECTED_DRAWS_TEXT_LOCATOR = LotteryPageLocators.Cart.SELECTED_DRAWS_TEXT_LOCATOR
+        self.SELECTED_DRAWS_AMOUNT = LotteryPageLocators.Cart.SELECTED_DRAWS_AMOUNT
+        self.TOTAL_TEXT = LotteryPageLocators.Cart.TOTAL_TEXT
 
-        # Локаторы класса AnotherLottery
-        self.AREA = self.lottery_page_locators.AnotherLottery.AREA
+        # Локаторы класса LotteryPageLocators.AnotherLottery
+        self.AREA = LotteryPageLocators.AnotherLottery.AREA
 
-        # Локаторы класса Alert
-        self.EMPTY_BUY = self.lottery_page_locators.Alert.EMPTY_BUY
+        # Локаторы класса LotteryPageLocators.Alert
+        self.EMPTY_BUY = LotteryPageLocators.Alert.EMPTY_BUY
 
-        # Локаторы класса HowToPlay
-        self.HOW_TO_PLAY_TAB = self.lottery_page_locators.HowToPlay.TAB
-        self.LOTTERY_INFO_AREA = self.lottery_page_locators.HowToPlay.LOTTERY_INFO_AREA
-        self.HOW_TO_PLAY_AREA = self.lottery_page_locators.HowToPlay.HOW_TO_PLAY_AREA
-        self.LEGAL_INFO_AREA = self.lottery_page_locators.HowToPlay.LEGAL_INFO_AREA
+        # Локаторы класса LotteryPageLocators.HowToPlay
+        self.HOW_TO_PLAY_TAB = LotteryPageLocators.HowToPlay.TAB
+        self.LOTTERY_INFO_AREA = LotteryPageLocators.HowToPlay.LOTTERY_INFO_AREA
+        self.HOW_TO_PLAY_AREA = LotteryPageLocators.HowToPlay.HOW_TO_PLAY_AREA
+        self.LEGAL_INFO_AREA = LotteryPageLocators.HowToPlay.LEGAL_INFO_AREA
 
     def navigate_to_lottery_section_by_locator(self, locator):
         self.scroll_to_element(locator)
@@ -84,11 +85,15 @@ class Lottery(PaymentWidget):
 
         self.click_element(locator)
 
+    def generate_top_half_combination(self):
+        self.click_element(self.TOP_HALF_FIELD_BUTTON)
+        time.sleep(0.5)
+
     def generate_combination_top_half_field(self):
         self.click_element(self.TOP_HALF_FIELD_BUTTON)
         time.sleep(0.5)
 
-    def add_last_numbers_in_2_fields(self):
+    def add_last_numbers_in_each_field(self):
         self.click_element(self.LAST_NUMBER_FIRST_FIELD)
         self.click_element(self.LAST_NUMBER_SECOND_FIELD)
         time.sleep(0.5)

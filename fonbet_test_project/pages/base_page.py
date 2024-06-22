@@ -1,9 +1,8 @@
 import time
 
 from selenium.webdriver.support import expected_conditions as ec
-from data.sensitive_data import sensitive_data
-from fonbet_test_project.locators import authorization_locators, header_menu_locators, iframe_locators, \
-    lottery_page_locators, main_page_locators
+from data.sensitive_data import SensitiveData
+from fonbet_test_project.locators import IframeLocators, QuickBuyLocators, ShowcaseLocators
 
 
 class BasePage:
@@ -12,20 +11,21 @@ class BasePage:
         self.wait = wait
         self.action = action
 
-        # Локаторы
-        self.nl_iframe = iframe_locators.NL_IFRAME
-        self.first_lottery_quick_buy = main_page_locators.QuickBuy.LOTTERY_1
+        # Данные класса SensitiveData
+        self.WEBSITE = SensitiveData.WEBSITE
 
-        # Ссылки на локаторы
-        self.sensitive_data = sensitive_data
-        self.authorization_locators = authorization_locators
-        self.header_menu_locators = header_menu_locators
-        self.iframe_locators = iframe_locators
-        self.lottery_page_locators = lottery_page_locators
-        self.main_page_locators = main_page_locators
+        # Локаторы класса IframeLocators
+        self.nl_iframe = IframeLocators.NL_IFRAME
+
+        # Локаторы класса MainPageLocators
+        self.first_lottery_quick_buy = QuickBuyLocators.LOTTERY_1
+        self.PREMIER_LOTTERY = ShowcaseLocators.PREMIER_LOTTERY
+        self.BIG8_LOTTERY = ShowcaseLocators.BIG8_LOTTERY
+        self.LOTTERY_4X4 = ShowcaseLocators.LOTTERY_4X4
+        self.TURNIR = ShowcaseLocators.TURNIR
 
     def open_website(self):
-        self.driver.get(self.sensitive_data.WEBSITE)
+        self.driver.get(self.WEBSITE)
         time.sleep(1)
 
     def switch_to_default_content(self):
@@ -47,10 +47,10 @@ class BasePage:
         :return: Локатор лотереи на основе module_name
         """
         locator_map = {
-            'test_premier_lottery': self.main_page_locators.Showcase.PREMIER_LOTTERY,
-            'test_big8_lottery': self.main_page_locators.Showcase.BIG8_LOTTERY,
-            'test_lottery_4X4': self.main_page_locators.Showcase.LOTTERY_4X4,
-            'test_turnir': self.main_page_locators.Showcase.TURNIR
+            'test_premier_lottery': self.PREMIER_LOTTERY,
+            'test_big8_lottery': self.BIG8_LOTTERY,
+            'test_lottery_4X4': self.LOTTERY_4X4,
+            'test_turnir': self.TURNIR
         }
 
         # Получаем локатор для лотереи
@@ -89,6 +89,9 @@ class BasePage:
     def get_text_by_locator(self, locator):
         text = self.find_element(locator).text
         return text
+
+    def quit(self):
+        self.driver.quit()
 
     # TODO: Область скроллов. Оставить ли в этом модули или выделить отдельный?
 

@@ -7,6 +7,3 @@ class IframeLocators:
 
     # Локатор второго iframe для CUPIS
     SECOND_CUPIS_IFRAME = ("xpath", "//*[@src='https://demo-widget.1cupis.ru//']")
-
-
-iframe_locators = IframeLocators

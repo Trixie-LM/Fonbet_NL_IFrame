@@ -1,5 +1,6 @@
 from selenium.webdriver.support import expected_conditions as ec
 
+from fonbet_test_project.locators import IframeLocators, LotteryPageLocators
 from fonbet_test_project.pages.base_page import BasePage
 
 
@@ -11,14 +12,14 @@ class PaymentWidget(BasePage):
         self.action = action
 
         # Локаторы класса IframeLocators
-        self.nl_iframe = self.iframe_locators.NL_IFRAME
-        self.first_cupis_iframe = self.iframe_locators.FIRST_CUPIS_IFRAME
-        self.second_cupis_iframe = self.iframe_locators.SECOND_CUPIS_IFRAME
+        self.nl_iframe = IframeLocators.NL_IFRAME
+        self.first_cupis_iframe = IframeLocators.FIRST_CUPIS_IFRAME
+        self.second_cupis_iframe = IframeLocators.SECOND_CUPIS_IFRAME
 
         # Локаторы класса LotteryPageLocators
-        self.payment_button_in_cart = self.lottery_page_locators.Cart.PAY_BUTTON
-        self.cupis_pay_button = self.lottery_page_locators.CUPIS_PAY_BUTTON
-        self.to_my_tickets_button = self.lottery_page_locators.Payment.TO_MY_TICKETS_BUTTON
+        self.payment_button_in_cart = LotteryPageLocators.Cart.PAY_BUTTON
+        self.cupis_pay_button = LotteryPageLocators.CUPIS_PAY_BUTTON
+        self.to_my_tickets_button = LotteryPageLocators.Payment.TO_MY_TICKETS_BUTTON
 
     def press_pay_button_in_cart(self):
         """
