@@ -32,7 +32,7 @@ class ShowcaseLocators:
 
     # Лотереи на витрине
     SHOWCASE = '//*[text()=" заполняйте, побеждайте!"]/parent::*'
-    PREMIER_LOTTERY = ('xpath', f'{SHOWCASE}//*[@href="/lottery/digital-4x20-premier"]')
-    BIG8_LOTTERY = ('xpath', f'{SHOWCASE}//*[@href="/lottery/digital-8x20-big8"]')
-    LOTTERY_4X4 = ('xpath', f'{SHOWCASE}//*[@href="/lottery/bingo-4x4-2"]')
+    PREMIER_LOTTERY = ('xpath', f'{SHOWCASE}//*[@href="/lottery/digital-4x20-premier/rules"]')
+    BIG8_LOTTERY = ('xpath', f'{SHOWCASE}//*[@href="/lottery/digital-8x20-big8/rules"]')
+    LOTTERY_4X4 = ('xpath', f'{SHOWCASE}//*[@href="/lottery/bingo-4x4-2/rules"]')
     TURNIR = ('xpath', f'{SHOWCASE}//*[@href="/lottery/turnir"]')

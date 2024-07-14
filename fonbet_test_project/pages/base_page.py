@@ -62,12 +62,12 @@ class BasePage:
 
         return locator
 
-    def _send_keys_by_locator(self, locator, value):
+    def send_keys_by_locator(self, locator, value):
         field = self.driver.find_element(*locator)
         field.send_keys(value)
 
     def find_element(self, locator):
-        self.wait.until(ec.element_to_be_clickable(locator))
+        # self.wait.until(ec.element_to_be_clickable(locator))
         return self.driver.find_element(*locator)
 
     def find_elements(self, locator):
